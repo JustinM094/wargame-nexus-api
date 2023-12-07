@@ -1,0 +1,32 @@
+[
+  {
+    "model": "wargameapi.wargameuser",
+    "pk": 1,
+    "fields": {
+      "bio": "Bio for Ryan Tanay",
+      "profile_image_url": "https://example.com/ryan_profile.jpg",
+      "user": 1,
+      "wargame_username": "ryan_wargame"
+    }
+  },
+  {
+    "model": "wargameapi.wargameuser",
+    "pk": 2,
+    "fields": {
+      "bio": "Bio for Meg Ducharme",
+      "profile_image_url": "https://example.com/meg_profile.jpg",
+      "user": 2,
+      "wargame_username": "meg_wargame"
+    }
+  },
+  {
+    "model": "wargameapi.wargameuser",
+    "pk": 3,
+    "fields": {
+      "bio": "Bio for Jenna Solis",
+      "profile_image_url": "https://example.com/jenna_profile.jpg",
+      "user": 3,
+      "wargame_username": "jenna_wargame"
+    }
+  }
+]
