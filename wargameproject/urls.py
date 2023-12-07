@@ -1,9 +1,11 @@
 from django.contrib import admin
 from django.urls import include, path
 from rest_framework import routers
-from wargameapi.views import register_user, login_user
+from wargameapi.views import register_user, login_user, ArmyView, WargameUserView
 
 router = routers.DefaultRouter(trailing_slash=False)
+router.register(r'users', WargameUserView, 'user')
+router.register(r'armies', ArmyView, 'army')
 
 urlpatterns = [
     path('register', register_user),

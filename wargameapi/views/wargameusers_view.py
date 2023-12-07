@@ -23,10 +23,26 @@ class UserSerializer(serializers.ModelSerializer):
     username = serializers.SerializerMethodField()
     password = serializers.SerializerMethodField()
 
+    def get_first_name(self, obj):
+        return f'{obj.first_name}'
+    
+    def get_last_name(self, obj):
+        return f'{obj.last_name}'
+    
+    def get_email(self, obj):
+        return f'{obj.email}'
+    
+    def get_username(self, obj):
+        return f'{obj.username}'
+    
+    def get_password(self, obj):
+        return f'{obj.password}'
+
+
     
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'email', 'username',)
+        fields = ('first_name', 'last_name', 'email', 'username', 'password',)
     
 
 class WargameUserSerializer(serializers.ModelSerializer):
@@ -35,4 +51,4 @@ class WargameUserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = WargameUser
-        fields = ('id', 'bio', 'profile_image_url',)
+        fields = ('id', 'bio', 'profile_image_url', 'user',)
