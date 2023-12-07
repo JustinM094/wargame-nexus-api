@@ -5,5 +5,5 @@ class Army(models.Model):
     image_url = models.URLField(null=True, blank=True)
     points = models.IntegerField(default=0)
     description = models.CharField(max_length=3000)
-    category = models.ForeignKey('Categories', on_delete=models.CASCADE)
+    category = models.ForeignKey('Category', on_delete=models.CASCADE)
     user = models.ForeignKey('WargameUser', on_delete=models.CASCADE)
