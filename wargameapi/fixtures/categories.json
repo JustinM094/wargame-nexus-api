@@ -1,0 +1,156 @@
+[
+  {
+    "model": "wargameapi.category",
+    "pk": 1,
+    "fields": {
+      "name": "Space Marines"
+    }
+  },
+  {
+    "model": "wargameapi.category",
+    "pk": 2,
+    "fields": {
+      "name": "Orcs"
+    }
+  },
+  {
+    "model": "wargameapi.category",
+    "pk": 3,
+    "fields": {
+      "name": "Aeldari"
+    }
+  },
+  {
+    "model": "wargameapi.category",
+    "pk": 4,
+    "fields": {
+      "name": "Chaos Space Marines"
+    }
+  },
+  {
+    "model": "wargameapi.category",
+    "pk": 5,
+    "fields": {
+      "name": "Tyranids"
+    }
+  },
+  {
+    "model": "wargameapi.category",
+    "pk": 6,
+    "fields": {
+      "name": "Astra Militarum"
+    }
+  },
+  {
+    "model": "wargameapi.category",
+    "pk": 7,
+    "fields": {
+      "name": "Necrons"
+    }
+  },
+  {
+    "model": "wargameapi.category",
+    "pk": 8,
+    "fields": {
+      "name": "Tau Empire"
+    }
+  },
+  {
+    "model": "wargameapi.category",
+    "pk": 9,
+    "fields": {
+      "name": "Adeptus Mechanicus"
+    }
+  },
+  {
+    "model": "wargameapi.category",
+    "pk": 10,
+    "fields": {
+      "name": "Genestealer Cults"
+    }
+  },
+  {
+    "model": "wargameapi.category",
+    "pk": 11,
+    "fields": {
+      "name": "Deathwatch"
+    }
+  },
+  {
+    "model": "wargameapi.category",
+    "pk": 12,
+    "fields": {
+      "name": "Adepta Sororitas"
+    }
+  },
+  {
+    "model": "wargameapi.category",
+    "pk": 13,
+    "fields": {
+      "name": "Adeptus Custodes"
+    }
+  },
+  {
+    "model": "wargameapi.category",
+    "pk": 14,
+    "fields": {
+      "name": "Grey Knights"
+    }
+  },
+  {
+    "model": "wargameapi.category",
+    "pk": 15,
+    "fields": {
+      "name": "Imperial Knights"
+    }
+  },
+  {
+    "model": "wargameapi.category",
+    "pk": 16,
+    "fields": {
+      "name": "Chaos Knights"
+    }
+  },
+  {
+    "model": "wargameapi.category",
+    "pk": 17,
+    "fields": {
+      "name": "Death Guard"
+    }
+  },
+  {
+    "model": "wargameapi.category",
+    "pk": 18,
+    "fields": {
+      "name": "World Eaters"
+    }
+  },
+  {
+    "model": "wargameapi.category",
+    "pk": 19,
+    "fields": {
+      "name": "Thousand Sons"
+    }
+  },
+  {
+    "model": "wargameapi.category",
+    "pk": 20,
+    "fields": {
+      "name": "Chaos Daemons"
+    }
+  },
+  {
+    "model": "wargameapi.category",
+    "pk": 21,
+    "fields": {
+      "name": "Drukhari"
+    }
+  },
+  {
+    "model": "wargameapi.category",
+    "pk": 22,
+    "fields": {
+      "name": "Leagues of Votann"
+    }
+  }
+]

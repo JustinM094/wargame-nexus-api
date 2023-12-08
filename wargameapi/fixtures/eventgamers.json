@@ -1,0 +1,32 @@
+[
+  {
+    "model": "wargameapi.eventgamer",
+    "pk": 1,
+    "fields": {
+      "user_id": 1,
+      "event_id": 1,
+      "timestamp": "2022-12-06T12:00:00Z",
+      "army_id": 1
+    }
+  },
+  {
+    "model": "wargameapi.eventgamer",
+    "pk": 2,
+    "fields": {
+      "user_id": 2,
+      "event_id": 1,
+      "timestamp": "2022-12-06T12:05:00Z",
+      "army_id": 2
+    }
+  },
+  {
+    "model": "wargameapi.eventgamer",
+    "pk": 3,
+    "fields": {
+      "user_id": 3,
+      "event_id": 1,
+      "timestamp": "2022-12-06T12:10:00Z",
+      "army_id": 3
+    }
+  }
+]

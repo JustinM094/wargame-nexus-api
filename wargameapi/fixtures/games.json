@@ -1,0 +1,41 @@
+[
+  {
+    "model": "wargameapi.game",
+    "pk": 1,
+    "fields": {
+      "game_name": "Galactic Showdown: Battle for the Warp",
+      "max_players": "4",
+      "system_id": 1,
+      "image_url": "ryan_game_image.jpg",
+      "creator_id": 1,
+      "description": "A thrilling 40k game set in the far reaches of space. Join the battle for the Warp and prove your dominance!",
+      "points": 2000
+    }
+  },
+  {
+    "model": "wargameapi.game",
+    "pk": 2,
+    "fields": {
+      "game_name": "Meg's Apocalyptic Mayhem: The Grand Melee",
+      "max_players": "6",
+      "system_id": 1,
+      "image_url": "meg_game_image.jpg",
+      "creator_id": 2,
+      "description": "Prepare for the ultimate battle as Meg hosts an epic Apocalypse-sized free-for-all. 10,000 points, 6 players—may the strongest survive!",
+      "points": 10000
+    }
+  },
+  {
+    "model": "wargameapi.game",
+    "pk": 3,
+    "fields": {
+      "game_name": "Jenna's Game",
+      "max_players": "2",
+      "system_id": 2,
+      "image_url": "jenna_game_image.jpg",
+      "creator_id": 3,
+      "description": "This is a game created by Jenna.",
+      "points": 100
+    }
+  }
+]
