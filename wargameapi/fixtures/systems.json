@@ -1,0 +1,23 @@
+[
+  {
+    "model": "wargameapi.system",
+    "pk": 1,
+    "fields": {
+      "name": "Warhammer 40K"
+    }
+  },
+  {
+    "model": "wargameapi.system",
+    "pk": 2,
+    "fields": {
+      "name": "Kill Team"
+    }
+  },
+  {
+    "model": "wargameapi.system",
+    "pk": 3,
+    "fields": {
+      "name": "Horus Heresy"
+    }
+  }
+]

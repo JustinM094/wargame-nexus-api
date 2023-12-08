@@ -1,0 +1,24 @@
+[
+  {
+    "model": "wargameapi.event",
+    "pk": 1,
+    "fields": {
+      "event_name": "Ryan's Warhammer 40k Showdown",
+      "host_id": 1,
+      "event_location": "Game Knights",
+      "event_time": "2023-12-15T18:00:00Z",
+      "game_id": 1
+    }
+  },
+  {
+    "model": "wargameapi.event",
+    "pk": 2,
+    "fields": {
+      "event_name": "Meg's Apocalyptic Clash",
+      "host_id": 2,
+      "event_location": "Meg's Gaming Lair",
+      "event_time": "2023-12-20T19:30:00Z",
+      "game_id": 2
+    }
+  }
+]

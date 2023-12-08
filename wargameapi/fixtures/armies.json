@@ -1,0 +1,38 @@
+[
+  {
+    "model": "wargameapi.army",
+    "pk": 1,
+    "fields": {
+      "name": "Word Bearers",
+      "image_url": "http://example.com/first_army.jpg",
+      "category_id": 4,
+      "points": 2000,
+      "description": "Lame bald dudes",
+      "user_id": 1
+    }
+  },
+  {
+    "model": "wargameapi.army",
+    "pk": 2,
+    "fields": {
+      "name": "Cadian 501st",
+      "image_url": "http://example.com/second_army.jpg",
+      "category_id": 6,
+      "points": 2000,
+      "description": "Average people with short life spans",
+      "user_id": 2
+    }
+  },
+  {
+    "model": "wargameapi.army",
+    "pk": 3,
+    "fields": {
+      "name": "Orcs",
+      "image_url": "http://example.com/third_army.jpg",
+      "category_id": 2,
+      "points": 1000,
+      "description": "WAAAAAAAGH!",
+      "user_id": 3
+    }
+  }
+]
