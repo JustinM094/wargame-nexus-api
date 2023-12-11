@@ -1,13 +1,28 @@
+from django.contrib.auth.models import User
 from rest_framework import serializers, status
 from rest_framework.response import Response
 from rest_framework.viewsets import ViewSet
 from django.core.exceptions import PermissionDenied
 from wargameapi.models import Army, WargameUser, Category
 
+class WargameUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = WargameUser
+        fields = ('id', 'wargame_username')
+
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = ('id', 'name')
+
+
 class ArmySerializer(serializers.ModelSerializer):
+    category = CategorySerializer()
+    user = WargameUserSerializer()
+
     class Meta:
         model = Army
-        fields = ('id', 'name', 'image_url', 'points', 'description', 'category', 'user',)
+        fields = ('id', 'name', 'image_url', 'points', 'description', 'category', 'user', )
 
 class ArmyUpdateSerializer(serializers.ModelSerializer):
     class Meta:
@@ -70,7 +85,7 @@ class ArmyView(ViewSet):
                 army.image_url = serializer.validated_data['image_url']
                 army.points = serializer.validated_data['points']
                 army.description = serializer.validated_data['description']
-                army.category_id = serializer.validated_data['category']
+                army.category = serializer.validated_data['category']
                 army.save()
                 serializer = ArmyUpdateSerializer(army, context={'request': request})
                 return Response(None, status.HTTP_204_NO_CONTENT)
