@@ -47,6 +47,7 @@ def register_user(request):
     # on Django's built-in User model
     new_user = User.objects.create_user(
         username=request.data['email'],
+        email=request.data['email'],
         password=request.data['password'],
         first_name=request.data['first_name'],
         last_name=request.data['last_name'],
@@ -56,6 +57,7 @@ def register_user(request):
     new_wargame_user.user_id = new_user.id
     new_wargame_user.bio = request.data.get('bio')
     new_wargame_user.profile_image_url = request.data.get('profile_image_url')
+    new_wargame_user.wargame_username = request.data.get('wargame_username')
     new_wargame_user.save()
     # Use the REST Framework's token generator on the new user account
     token = Token.objects.create(user=new_user)
