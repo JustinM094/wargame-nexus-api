@@ -20,9 +20,14 @@ class ArmySerializer(serializers.ModelSerializer):
     category = CategorySerializer()
     user = WargameUserSerializer()
 
+    is_owner = serializers.SerializerMethodField()
+    def get_is_owner(self, obj):
+    # Check if the authenticated user is the owner
+        return self.context['request'].user.id == obj.user_id
+
     class Meta:
         model = Army
-        fields = ('id', 'name', 'image_url', 'points', 'description', 'category', 'user', )
+        fields = ('id', 'name', 'image_url', 'points', 'description', 'category', 'user', 'is_owner',)
 
 class ArmyUpdateSerializer(serializers.ModelSerializer):
     class Meta:
@@ -33,13 +38,16 @@ class ArmyView(ViewSet):
 
     def list(self, request):
         armies = Army.objects.all()
-        serialized = ArmySerializer(armies, many=True)
+        serialized = ArmySerializer(armies, many=True, context={'request': request})
         return Response(serialized.data, status=status.HTTP_200_OK)
 
     def retrieve(self, request, pk=None):
-        army = Army.objects.get(pk=pk)
-        serialized = ArmySerializer(army, many=False)
-        return Response(serialized.data, status=status.HTTP_200_OK)
+        try:
+            single_army = Army.objects.get(pk=pk)
+            serialized = ArmySerializer(single_army, context={'request': request})
+            return Response(serialized.data, status=status.HTTP_200_OK)
+        except Army.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
     
     def create(self, request):
         name = request.data.get('name')
