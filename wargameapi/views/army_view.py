@@ -32,7 +32,9 @@ class ArmySerializer(serializers.ModelSerializer):
 class ArmyUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Army
-        fields = ('id', 'name', 'image_url', 'points', 'description', 'category', 'user',)
+        fields = ('name', 'image_url', 'points', 'description', 'category',)
+
+        extra_kwargs = {"category": {"required": False}}
 
 class ArmyView(ViewSet):
 
@@ -88,11 +90,12 @@ class ArmyView(ViewSet):
             return Response(status=status.HTTP_404_NOT_FOUND)
         
     def update(self, request, pk=None):
+        # test = 1
         try:
             army = Army.objects.get(pk=pk)
-            serializer = ArmyUpdateSerializer(army, data=request.data, context={'request': request})
+            serializer = ArmyUpdateSerializer(army, data=request.data, partial=True, context={'request': request})
             if serializer.is_valid():
-                army.user = serializer.validated_data['user']
+                # army.user = WargameUser.objects.get(user=request.auth.user)
                 army.name = serializer.validated_data['name']
                 army.image_url = serializer.validated_data['image_url']
                 army.points = serializer.validated_data['points']

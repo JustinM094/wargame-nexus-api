@@ -8,6 +8,8 @@ class CategorySerializer(serializers.ModelSerializer):
         model = Category
         fields = ('id', 'name',)
 
+
+
 class CategoryView(ViewSet):
     def list(self, request):
         category = Category.objects.all()
