@@ -50,23 +50,27 @@ class ArmyView(ViewSet):
             return Response(status=status.HTTP_404_NOT_FOUND)
     
     def create(self, request):
-        name = request.data.get('name')
-        image_url = request.data.get('image_url')
-        points = request.data.get('points')
-        description = request.data.get('description')
-        category_id = request.data.get('category')
+        try:
+            name = request.data.get('name')
+            image_url = request.data.get('image_url')
+            points = request.data.get('points')
+            description = request.data.get('description')
+            category_id = request.data.get('category')
 
-        army = Army.objects.create(
-            user=request.user.wargameuser,
-            name=name,
-            image_url=image_url,
-            points=points,
-            description=description,
-            category_id=category_id,
-        )
+            army = Army.objects.create(
+                user=request.user.wargameuser,
+                name=name,
+                image_url=image_url,
+                points=points,
+                description=description,
+                category_id=category_id,
+            )
 
-        serializer = ArmySerializer(army, context={'request': request})
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+            serializer = ArmySerializer(army, context={'request': request})
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
 
 
     def destroy(self, request, pk=None):
