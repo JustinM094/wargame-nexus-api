@@ -4,6 +4,11 @@ from rest_framework.viewsets import ViewSet
 from django.core.exceptions import PermissionDenied
 from wargameapi.models import Game, System
 
+class SystemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = System
+        fields = ('id', 'name')
+
 class GameUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Game
@@ -11,12 +16,13 @@ class GameUpdateSerializer(serializers.ModelSerializer):
 
 
 class GameSerializer(serializers.ModelSerializer):
+    system = SystemSerializer()
     is_owner = serializers.SerializerMethodField()
     def get_is_owner(self, obj):
         return self.context['request'].user.id == obj.creator_id
     class Meta:
         model = Game
-        fields = ('id', 'game_name', 'image_url', 'description', 'points', 'max_players', 'system_id', 'creator_id', 'is_owner')
+        fields = ('id', 'game_name', 'image_url', 'description', 'points', 'max_players', 'system', 'creator_id', 'is_owner')
 
 class GameView(ViewSet):
     def list(self, request):
