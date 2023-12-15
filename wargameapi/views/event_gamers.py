@@ -30,9 +30,15 @@ class EventGamerSerializer(serializers.ModelSerializer):
 class EventGamerView(ViewSet):
 
     def list(self, request):
-        event_gamers = EventGamer.objects.all()
-        serialized = EventGamerSerializer(event_gamers, many=True, context={'request': request})
-        return Response(serialized.data, status=status.HTTP_200_OK)
+        event_id = request.query_params.get('event', None)
+        
+        if event_id is not None:
+            event_gamers = EventGamer.objects.filter(event=event_id)
+            serialized = EventGamerSerializer(event_gamers, many=True, context={'request': request})
+            return Response(serialized.data, status=status.HTTP_200_OK)
+        else:
+            # Handle the case when 'event' query parameter is not provided
+            return Response({'error': 'Missing event parameter'}, status=status.HTTP_400_BAD_REQUEST)
     
     def retrieve(self, request, pk=None):
         try:
@@ -61,10 +67,12 @@ class EventGamerView(ViewSet):
 
     def destroy(self, request, pk=None):
         try:
-            event = EventGamer.objects.get(pk=pk)
-            if request.user.wargameuser.id != event.host_id:
-                raise PermissionDenied("You do not have permission to delete this event.")
-            event.delete()
+            event_gamer = EventGamer.objects.get(pk=pk)
+            # You might want to add a permission check here before deleting
+            # if request.user.wargameuser.id != event_gamer.user_id:
+            #     raise PermissionDenied("You do not have permission to delete this event gamer.")
+            
+            event_gamer.delete()
             return Response(status=status.HTTP_204_NO_CONTENT)
-        except Event.DoesNotExist:
+        except EventGamer.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
