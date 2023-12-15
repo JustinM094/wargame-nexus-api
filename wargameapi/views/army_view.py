@@ -32,6 +32,7 @@ class ArmySerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'image_url', 'points', 'description', 'category', 'user', 'is_owner',)
 
 class ArmyUpdateSerializer(serializers.ModelSerializer):
+    category = CategoryUpdateSerializer(required=False)
     class Meta:
         model = Army
         fields = ('name', 'image_url', 'points', 'description', 'category',)

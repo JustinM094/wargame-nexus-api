@@ -2,12 +2,18 @@ from rest_framework import serializers, status
 from rest_framework.response import Response
 from rest_framework.viewsets import ViewSet
 from django.core.exceptions import PermissionDenied
-from wargameapi.models import Event, Game
+from wargameapi.models import Event, Game, System
+
+class SystemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = System
+        fields = ('id', 'name',)
 
 class GameSerializer(serializers.ModelSerializer):
+    system = SystemSerializer()
     class Meta:
         model = Game
-        fields = ('id', 'game_name', 'description', 'image_url', 'points', 'max_players')
+        fields = ('id', 'game_name', 'description', 'image_url', 'points', 'max_players', 'system',)
 
 class EventSerializer(serializers.ModelSerializer):
     game = GameSerializer()

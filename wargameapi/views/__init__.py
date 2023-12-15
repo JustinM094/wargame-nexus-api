@@ -5,3 +5,4 @@ from .game_view import GameView
 from .event_view import EventView
 from .category_view import CategoryView
 from .system_view import SystemView
+from .event_gamers import EventGamerView
