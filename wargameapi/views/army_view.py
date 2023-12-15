@@ -15,8 +15,8 @@ class CategorySerializer(serializers.ModelSerializer):
         model = Category
         fields = ('id', 'name')
 
-class CategoryUpdateSerializer(serializers.Serializer):
-    id = serializers.IntegerField()
+# class CategoryUpdateSerializer(serializers.Serializer):
+#     id = serializers.IntegerField()
 
 class ArmySerializer(serializers.ModelSerializer):
     category = CategorySerializer()
@@ -32,12 +32,12 @@ class ArmySerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'image_url', 'points', 'description', 'category', 'user', 'is_owner',)
 
 class ArmyUpdateSerializer(serializers.ModelSerializer):
-    category = CategoryUpdateSerializer(required=False)
+    # category = CategoryUpdateSerializer(required=False)
     class Meta:
         model = Army
         fields = ('name', 'image_url', 'points', 'description', 'category',)
 
-        extra_kwargs = {"category": {"required": False}}
+        # extra_kwargs = {"category": {"required": False}}
 
 class ArmyView(ViewSet):
 
