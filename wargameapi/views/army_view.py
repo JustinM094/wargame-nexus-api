@@ -15,6 +15,8 @@ class CategorySerializer(serializers.ModelSerializer):
         model = Category
         fields = ('id', 'name')
 
+class CategoryUpdateSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
 
 class ArmySerializer(serializers.ModelSerializer):
     category = CategorySerializer()

@@ -11,9 +11,12 @@ class GameSerializer(serializers.ModelSerializer):
 
 class EventSerializer(serializers.ModelSerializer):
     game = GameSerializer()
+    is_owner = serializers.SerializerMethodField()
+    def get_is_owner(self, obj):
+        return self.context['request'].user.id == obj.host_id
     class Meta:
         model = Event
-        fields = ('id', 'host', 'event_name', 'event_location', 'event_time', 'game',)
+        fields = ('id', 'host', 'event_name', 'event_location', 'event_time', 'game', 'is_owner')
 
 class EventUpdateSerializer(serializers.ModelSerializer):
     class Meta:
