@@ -66,6 +66,7 @@ class EventGamerView(ViewSet):
         
 
     def destroy(self, request, pk=None):
+
         try:
             event_gamer = EventGamer.objects.get(pk=pk)
             # You might want to add a permission check here before deleting

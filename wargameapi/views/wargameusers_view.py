@@ -2,7 +2,13 @@ from rest_framework import serializers
 from rest_framework.response import Response
 from rest_framework.viewsets import ViewSet
 from django.contrib.auth.models import User
-from wargameapi.models import WargameUser
+from wargameapi.models import WargameUser, EventGamer, Event
+
+# class EventSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model: Event
+
+
 
 class WargameUserView(ViewSet):
 
@@ -40,12 +46,23 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('first_name', 'last_name', 'email', 'username',)
+
+class EventSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Event
+        fields = ('id',)
+
+class EventGamerSerializer(serializers.ModelSerializer):
+    event = EventSerializer(many=False)
+    class Meta:
+        model = EventGamer
+        fields = ('id', 'event',)
     
 
-class WargameUserSerializer(serializers.ModelSerializer):
-
+class WargameUserSerializer(serializers.ModelSerializer):  
+    gamer_events = EventGamerSerializer(many=True)
     user = UserSerializer(many=False)
 
     class Meta:
         model = WargameUser
-        fields = ('id', 'bio', 'profile_image_url', 'user',)
+        fields = ('id', 'bio', 'profile_image_url', 'user', 'gamer_events')
