@@ -12,10 +12,9 @@ router.register(r'categories', CategoryView, 'category')
 router.register(r'systems', SystemView, 'system')
 router.register(r'eventgamers', EventGamerView, 'eventgamer')
 
-
 urlpatterns = [
     path('register', register_user),
     path('login', login_user),
     path('', include(router.urls)),
+    path('profile/<int:pk>/', WargameUserView.as_view({'get': 'retrieve'}), name='user-profile'),
 ]
-
