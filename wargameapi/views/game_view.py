@@ -12,7 +12,7 @@ class SystemSerializer(serializers.ModelSerializer):
 class GameUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Game
-        fields = ('id', 'game_name', 'image_url', 'description', 'points', 'max_players', 'system_id', 'creator_id',)
+        fields = ('id', 'game_name', 'image_url', 'description', 'points', 'max_players', 'system', 'creator_id',)
 
 
 class GameSerializer(serializers.ModelSerializer):
@@ -69,13 +69,12 @@ class GameView(ViewSet):
             game = Game.objects.get(pk=pk)
             serializer = GameUpdateSerializer(game, data=request.data, context={'request': request})
             if serializer.is_valid():
-                game.creator = serializer.validated_data['creator']
                 game.game_name = serializer.validated_data['game_name']
                 game.image_url = serializer.validated_data['image_url']
                 game.description = serializer.validated_data['description']
                 game.points = serializer.validated_data['points']
                 game.max_players = serializer.validated_data['max_players']
-                game.system= serializer.validated_data['system']
+                game.system = serializer.validated_data['system']
                 game.save()
                 serializer = GameUpdateSerializer(game, context={'request': request})
                 return Response(None, status.HTTP_204_NO_CONTENT)
