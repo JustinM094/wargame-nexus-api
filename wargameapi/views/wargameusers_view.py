@@ -27,7 +27,7 @@ class UserSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'email', 'username',)
+        fields = ('id', 'first_name', 'last_name', 'email', 'username',)
 
 class EventSerializer(serializers.ModelSerializer):
     class Meta:
@@ -55,6 +55,7 @@ class WargameUserUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = WargameUser
         fields = ('id', 'bio', 'profile_image_url', 'user', 'gamer_events', 'wargame_username')
+    
 
 class WargameUserView(ViewSet):
 
@@ -72,22 +73,46 @@ class WargameUserView(ViewSet):
         try:
             wargame_user = WargameUser.objects.get(pk=pk)
             serializer = WargameUserUpdateSerializer(wargame_user, data=request.data, context={'request': request})
+
             if serializer.is_valid():
-                wargame_user.wargame_username = serializer.validated_data['wargame_username']
-                
-                # Access the 'email' field within the nested 'user' field
+                # Extract the user_id from the WargameUser instance
                 user_data = serializer.validated_data.get('user', {})
-                wargame_user.user.email = user_data.get('email', '')
-                wargame_user.user.first_name = user_data.get('first_name', '')
-                wargame_user.user.last_name = user_data.get('last_name', '')
-                
+                user_id = user_data.get('id')
+
+                # Initialize the user variable
+                user = None
+
+                # Update the user-related fields if user_id is present
+                if user_id:
+                    user = User.objects.get(pk=user_id)
+                    user.email = user_data.get('email', user.email)
+                    user.first_name = user_data.get('first_name', user.first_name)
+                    user.last_name = user_data.get('last_name', user.last_name)
+                    user.save()
+
+                # Update the WargameUser fields
+                wargame_user.wargame_username = serializer.validated_data['wargame_username']
                 wargame_user.bio = serializer.validated_data.get('bio', '')
                 wargame_user.profile_image_url = serializer.validated_data.get('profile_image_url', '')
-                
+
+                # Save both models
+                if user:
+                    user.save()
                 wargame_user.save()
-                serializer = WargameUserUpdateSerializer(wargame_user, context={'request': request})
-                return Response(None, status.HTTP_204_NO_CONTENT)
+
+                # Return the updated data
+                updated_serializer = WargameUserUpdateSerializer(wargame_user, context={'request': request})
+                return Response(updated_serializer.data, status.HTTP_200_OK)
+
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
         except WargameUser.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
-
+        
+    def destroy(self, request, pk=None):
+        try:
+            wargame_user = WargameUser.objects.get(pk=pk)
+            wargame_user.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        except WargameUser.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
