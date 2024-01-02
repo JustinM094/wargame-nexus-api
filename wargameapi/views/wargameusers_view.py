@@ -71,36 +71,30 @@ class WargameUserView(ViewSet):
     
     def update(self, request, pk=None):
         try:
+            user = User.objects.get(pk=pk)
             wargame_user = WargameUser.objects.get(pk=pk)
             serializer = WargameUserUpdateSerializer(wargame_user, data=request.data, context={'request': request})
 
             if serializer.is_valid():
-                # Extract the user_id from the WargameUser instance
-                user_data = serializer.validated_data.get('user', {})
-                user_id = user_data.get('id')
+                user_data = serializer.validated_data.pop('user', {})
 
-                # Initialize the user variable
-                user = None
+                if user_data:
+                    user_id = user_data.get('id')
+                    if user_id:
+                        user = User.objects.get(pk=user_id)
+                        user.email = user_data.get('email', user.email)
+                        user.first_name = user_data.get('first_name', user.first_name)
+                        user.last_name = user_data.get('last_name', user.last_name)
+                        user.save()
 
-                # Update the user-related fields if user_id is present
-                if user_id:
-                    user = User.objects.get(pk=user_id)
-                    user.email = user_data.get('email', user.email)
-                    user.first_name = user_data.get('first_name', user.first_name)
-                    user.last_name = user_data.get('last_name', user.last_name)
-                    user.save()
+                        wargame_user.user.first_name = user.first_name
 
-                # Update the WargameUser fields
-                wargame_user.wargame_username = serializer.validated_data['wargame_username']
-                wargame_user.bio = serializer.validated_data.get('bio', '')
-                wargame_user.profile_image_url = serializer.validated_data.get('profile_image_url', '')
+                wargame_user.wargame_username = serializer.validated_data.get('wargame_username', wargame_user.wargame_username)
+                wargame_user.bio = serializer.validated_data.get('bio', wargame_user.bio)
+                wargame_user.profile_image_url = serializer.validated_data.get('profile_image_url', wargame_user.profile_image_url)
 
-                # Save both models
-                if user:
-                    user.save()
                 wargame_user.save()
 
-                # Return the updated data
                 updated_serializer = WargameUserUpdateSerializer(wargame_user, context={'request': request})
                 return Response(updated_serializer.data, status.HTTP_200_OK)
 
